@@ -5,7 +5,6 @@ import './styles/Badges.css';
 
 import confLogo from '../images/badge-header.svg';
 
-import NavBar from '../component/NavBar';
 import BadgeList from '../component/BadgeList';
 
 class Badges extends React.Component {
@@ -44,9 +43,7 @@ class Badges extends React.Component {
 
     render(){
         return (
-            <div>
-               <NavBar />
-
+            <React.Fragment>
                <div className="Badges">
                    <div className="Badges__hero">
                        <div className="Badges__container">
@@ -66,7 +63,7 @@ class Badges extends React.Component {
                         </div>
                     </div>
                </div>
-            </div>
+            </React.Fragment>
         );
     }
 }
