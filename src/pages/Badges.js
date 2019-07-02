@@ -6,6 +6,8 @@ import './styles/Badges.css';
 import confLogo from '../images/badge-header.svg';
 
 import BadgeList from '../component/BadgeList';
+import PageLoading from '../component/PageLoading';
+import PageError from '../component/PageError';
 
 import api from '../api';
 
@@ -30,14 +32,17 @@ class Badges extends React.Component {
             this.setState({ loading: false, data: data });
         } catch (error) {
             this.setState({ loading: false, error: error });
-            console.log(this.state.error)
         }
     }
 
     render(){
 
         if (this.state.loading === true) {
-            return <h4>Carregando Badges...</h4>
+            return <PageLoading/>
+        }
+
+        if (this.state.error) {
+            return <PageError error={this.state.error} />
         }
 
         return (

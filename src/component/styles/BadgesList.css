@@ -1,6 +1,5 @@
 .BadgesList ul>li {
   margin-bottom: 1rem;
-  display: flex;
 }
 
 .BadgesListItem {
@@ -17,17 +16,4 @@
   margin-right: 0.5rem;
   width: 80px;
   height: 80px;
-}
-
-.BadgesListItem__data{
-  display: flex;
-  flex-direction: column;
-}
-
-.BadgesListItem__data h4{
-  margin: 0;
-}
-
-.BadgesListItem__data span:nth-child(2){
-  color: #00acee;
 }

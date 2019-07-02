@@ -23,7 +23,7 @@ async function callApi(endpoint, options = {}) {
 
 const api = {
   badges: {
-    list() {
+    list() {     
       return callApi('/badges');
     },
     create(badge) {
