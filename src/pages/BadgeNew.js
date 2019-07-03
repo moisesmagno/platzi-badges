@@ -6,12 +6,17 @@ import header from '../images/platziconf-logo.svg';
 
 import Badge from '../component/Badge';
 import BadgeForm from '../component/BadgeForm';
+import api from '../api';
 
 
 class BadgeNew extends React.Component {
 
     state = { 
+            defaults: {
+            avatar: 'https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg'
+            },
             form: {
+                avatarUrl: '',
                 firstName: '',
                 lastName: '',
                 jobTitle: '',
@@ -26,10 +31,23 @@ class BadgeNew extends React.Component {
             {
                 form: {
                     ...this.state.form,
-                    [e.target.name]: e.target.value
+                    [e.target.name]: e.target.value,
+                    avatarUrl: 'https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg'
                 }
             }
         );
+    }
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        this.setState({ loading: true, error: null });
+
+        try{
+            await api.badges.create(this.state.form);
+            this.setState({ loading: false });
+        }catch(error){
+            this.setState({ loading: false, error: error });
+        }
     }
 
     render(){
@@ -42,17 +60,22 @@ class BadgeNew extends React.Component {
                     <div className="row">
                         <div className="col-6">
                             <Badge 
-                                urlAvatar="https://avatars0.githubusercontent.com/u/4347195?s=460&v=4"
-                                firstName={this.state.form.firstName}
-                                lastName={this.state.form.lastName}
-                                jobsTitle={this.state.form.jobTitle}
-                                userTwitterr={this.state.form.twitter}
-                                email={this.state.form.email}
+                                // urlAvatar="https://avatars0.githubusercontent.com/u/4347195?s=460&v=4"
+                                urlAvatar={this.state.form.avataruser || this.state.defaults.avatar}
+                                firstName={this.state.form.firstName || 'First Name'}
+                                lastName={this.state.form.lastName || 'Last Name'}
+                                jobsTitle={this.state.form.jobTitle || 'Job Title'}
+                                userTwitterr={this.state.form.twitter || 'UserTwitter'}
+                                email={this.state.form.email || 'E-mail'}
                             />
                         </div>
 
                         <div className="col-6">
-                            <BadgeForm onChange={this.handleChange} form={this.state.form}/>
+                            <BadgeForm 
+                                onChange={this.handleChange} 
+                                form={this.state.form}
+                                onSubmit={this.handleSubmit}
+                            />
                         </div>
                     </div>
                 </div>
