@@ -7,6 +7,7 @@ import header from '../images/platziconf-logo.svg';
 import Badge from '../component/Badge';
 import BadgeForm from '../component/BadgeForm';
 import api from '../api';
+import apiGit from '../services/apis';
 
 
 class BadgeNew extends React.Component {
@@ -25,14 +26,34 @@ class BadgeNew extends React.Component {
             } 
         }
 
-    handleChange = (e) => {
-        e.preventDefault();
+   
+    fetchData = async () => {
+        this.setState({ loading: true, error: null });
+
+        try {
+            const data = await api.badges.list();
+            this.setState({ loading: false, data: data });
+        } catch (error) {
+            this.setState({ loading: false, error: error });
+        }
+    }    
+
+    handleChange = async (e) => {
+        e.persist();   
+
+        const urlAvatarGit = '';
+
+        if (e.target.name === 'twitter'){
+            const { data } = await apiGit.get(`users/${e.target.value}`)
+            this.urlAvatarGit = data.avatar_url;
+        }
+
         this.setState(
             {
                 form: {
                     ...this.state.form,
                     [e.target.name]: e.target.value,
-                    avatarUrl: 'https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg'
+                    avatarUrl: this.urlAvatarGit
                 }
             }
         );
@@ -61,7 +82,7 @@ class BadgeNew extends React.Component {
                         <div className="col-6">
                             <Badge 
                                 // urlAvatar="https://avatars0.githubusercontent.com/u/4347195?s=460&v=4"
-                                urlAvatar={this.state.form.avataruser || this.state.defaults.avatar}
+                                urlAvatar={this.state.form.avatarUrl || this.state.defaults.avatar}
                                 firstName={this.state.form.firstName || 'First Name'}
                                 lastName={this.state.form.lastName || 'Last Name'}
                                 jobsTitle={this.state.form.jobTitle || 'Job Title'}
