@@ -2,10 +2,6 @@ import React from 'react';
 
 class BadgeForm extends React.Component{
 
-    handleClick = (e) => {
-        console.log("Button was Clicked");
-    }
-
     render(){
         return (
             <React.Fragment>
@@ -48,16 +44,29 @@ class BadgeForm extends React.Component{
                             name="jobTitle" 
                             value={this.props.form.jobTitle}/>
                     </div>
-                    <div className="form-group">
-                        <label>Twitter</label>
-                        <input 
-                            onChange={this.props.onChange} 
-                            className="form-control" 
-                            type="text" 
-                            name="twitter" 
-                            value={this.props.form.twitter}/>
-                    </div>
-                    <button type="submit" onClick={this.handleClick} className="btn btn-primary">Save</button>
+                    
+                    
+                        <div className="form-group">
+                            <label>Github</label>
+                            <div className="form-inline">
+                                <div className="form-group">
+                                    <input 
+                                        onChange={this.props.onChange} 
+                                        className="form-control" 
+                                        type="text" 
+                                        name="github" 
+                                        value={this.props.form.github}/>
+                                </div>
+                                <div className="form-group mx-sm-3">
+                                    <button type="button" className="btn btn-secondary" onClick={this.props.uploaduploadAvatar} >Subir foto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    
+                    
+
+                    <button type="submit" className="btn btn-primary btn-lg btn-block">Save</button>
                 </form>
             </React.Fragment>
         )

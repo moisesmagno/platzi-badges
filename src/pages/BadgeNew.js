@@ -17,11 +17,11 @@ class BadgeNew extends React.Component {
             avatar: 'https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg'
             },
             form: {
-                avatarUrl: '',
+                avatarUrl: 'https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg',
                 firstName: '',
                 lastName: '',
                 jobTitle: '',
-                twitter: '',
+                github: '',
                 email: ''
             } 
         }
@@ -38,29 +38,42 @@ class BadgeNew extends React.Component {
         }
     }    
 
-    handleChange = async (e) => {
-        e.persist();   
+    handleUploadAvatar = async (e) => {
 
-        const urlAvatarGit = '';
+        const { data } = await apiGit.get(`users/${this.state.form.github}`)
 
-        if (e.target.name === 'twitter'){
-            const { data } = await apiGit.get(`users/${e.target.value}`)
-            this.urlAvatarGit = data.avatar_url;
-        }
+        this.setState(
+            {
+                form: {
+                    ...this.state.form,
+                    avatarUrl: data.avatar_url
+                }
+            }
+        )
+
+        console.log(this.state.form);
+    }
+
+    handleChange = (e) => { 
+
+        e.preventDefault();
 
         this.setState(
             {
                 form: {
                     ...this.state.form,
                     [e.target.name]: e.target.value,
-                    avatarUrl: this.urlAvatarGit
+                    avatarUrl: this.state.form.avatarUrl
                 }
             }
         );
+
+        console.log(this.state.form);
     }
 
     handleSubmit = async (e) => {
         e.preventDefault();
+        
         this.setState({ loading: true, error: null });
 
         try{
@@ -81,12 +94,11 @@ class BadgeNew extends React.Component {
                     <div className="row">
                         <div className="col-6">
                             <Badge 
-                                // urlAvatar="https://avatars0.githubusercontent.com/u/4347195?s=460&v=4"
                                 urlAvatar={this.state.form.avatarUrl || this.state.defaults.avatar}
                                 firstName={this.state.form.firstName || 'First Name'}
                                 lastName={this.state.form.lastName || 'Last Name'}
                                 jobsTitle={this.state.form.jobTitle || 'Job Title'}
-                                userTwitterr={this.state.form.twitter || 'UserTwitter'}
+                                userGithub={this.state.form.github || 'User Github'}
                                 email={this.state.form.email || 'E-mail'}
                             />
                         </div>
@@ -96,6 +108,7 @@ class BadgeNew extends React.Component {
                                 onChange={this.handleChange} 
                                 form={this.state.form}
                                 onSubmit={this.handleSubmit}
+                                uploaduploadAvatar={this.handleUploadAvatar}
                             />
                         </div>
                     </div>

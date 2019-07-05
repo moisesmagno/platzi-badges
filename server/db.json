@@ -46,13 +46,22 @@
       "avatarUrl": "https://www.gravatar.com/avatar/00e35de53a06a655fe5b6ac8b96bdb84?d=identicon"
     },
     {
-      "avatarUrl": "https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg",
+      "avatarUrl": "https://avatars3.githubusercontent.com/u/4347195?v=4",
       "firstName": "Moisés",
       "lastName": "Aguilar",
       "jobTitle": "CEO",
-      "twitter": "moisesmagno",
+      "github": "moisesmagno",
       "email": "moisesmagno@gmail.com",
-      "id": "t29DVa-"
+      "id": "FPFiN8L"
+    },
+    {
+      "avatarUrl": "https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg",
+      "firstName": "Davi",
+      "lastName": "Sampaio",
+      "jobTitle": "Suporte Técnico",
+      "github": "davi",
+      "email": "davi@cerba-lca.com.br",
+      "id": "gJ7wSK-"
     }
   ]
 }
