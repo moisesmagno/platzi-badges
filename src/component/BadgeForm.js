@@ -5,8 +5,6 @@ class BadgeForm extends React.Component{
     render(){
         return (
             <React.Fragment>
-                <h1>New Attendant</h1>
-
                 <form onSubmit={this.props.onSubmit}>
                     <div className="form-group">
                         <label>First Name</label>
@@ -45,26 +43,27 @@ class BadgeForm extends React.Component{
                             value={this.props.form.jobTitle}/>
                     </div>
                     
-                    
-                        <div className="form-group">
-                            <label>Github</label>
-                            <div className="form-inline">
-                                <div className="form-group">
-                                    <input 
-                                        onChange={this.props.onChange} 
-                                        className="form-control" 
-                                        type="text" 
-                                        name="github" 
-                                        value={this.props.form.github}/>
-                                </div>
-                                <div className="form-group mx-sm-3">
-                                    <button type="button" className="btn btn-secondary" onClick={this.props.uploaduploadAvatar} >Subir foto</button>
-                                </div>
+                    <div className="form-group">
+                        <label>Github</label>
+                        <div className="form-inline">
+                            <div className="form-group">
+                                <input 
+                                    onChange={this.props.onChange} 
+                                    className="form-control" 
+                                    type="text" 
+                                    name="github" 
+                                    value={this.props.form.github}/>
+                            </div>
+                            <div className="form-group mx-sm-3">
+                                <button type="button" className="btn btn-secondary" onClick={this.props.uploaduploadAvatar} >Subir foto</button>
                             </div>
                         </div>
-
-                    
-                    
+                    </div>    
+                    {this.props.error && (
+                        <div class="alert alert-danger" role="alert">
+                          {this.props.error.message}
+                        </div>
+                    )}              
 
                     <button type="submit" className="btn btn-primary btn-lg btn-block">Save</button>
                 </form>

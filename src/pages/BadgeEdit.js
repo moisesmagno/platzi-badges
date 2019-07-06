@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './styles/BadgeNew.css';
+import './styles/BadgeEdit.css';
 
 import header from '../images/platziconf-logo.svg';
 
@@ -11,13 +11,13 @@ import apiGit from '../services/apis';
 import PageLoading from '../component/PageLoading';
 
 
-class BadgeNew extends React.Component {
+class BadgeEdit extends React.Component {
 
     state = { 
             defaults: {
                 avatar: 'https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg'
             },
-            loading: false,
+            loading: true,
             error: null,    
             form: {
                 avatarUrl: 'https://exelord.com/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg',
@@ -29,17 +29,21 @@ class BadgeNew extends React.Component {
             } 
         }
 
-   
-    fetchData = async () => {
+    componentDidMount() {
+        this.fetchData();
+    }
+    
+    fetchData = async e => {
         this.setState({ loading: true, error: null });
-
+    
         try {
-            const data = await api.badges.list();
-            this.setState({ loading: false, data: data });
+            const data = await api.badges.read(this.props.match.params.badgeId);
+    
+            this.setState({ loading: false, form: data });
         } catch (error) {
             this.setState({ loading: false, error: error });
         }
-    }    
+    };
 
     handleUploadAvatar = async (e) => {
 
@@ -94,11 +98,11 @@ class BadgeNew extends React.Component {
         if(this.state.loading) {
             return <PageLoading />
         }
-
+        
         return (
             <React.Fragment>
-                <div className="BadgeNew__hero">
-                    <img className="BadgeNew__hero-image img-fluid" src={header} alt="Logo"/>        
+                <div className="BadgeEdit__hero">
+                    <img className="BadgeEdit__hero-image img-fluid" src={header} alt="Logo"/>        
                 </div>
                 <div className="container">
                     <div className="row">
@@ -115,7 +119,7 @@ class BadgeNew extends React.Component {
 
                         <div className="col-6">
                             
-                            <h1>New Attendant</h1>
+                            <h1>Edit Attendant</h1>
                             
                             <BadgeForm 
                                 onChange={this.handleChange} 
@@ -132,4 +136,4 @@ class BadgeNew extends React.Component {
     }
 }
 
-export default BadgeNew;
+export default BadgeEdit;
