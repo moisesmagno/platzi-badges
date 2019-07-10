@@ -24,10 +24,11 @@ class Badges extends React.Component {
     componentDidMount(){
         this.fetchData();
 
+        //Executa o método fetchData a cada 5 segundos, isso para atualizar a página automáticamente.
         this.interval = setInterval(this.fetchData, 5000);
     }
 
-    //
+    //Para o intervalo de execuções, isso para após sair da página. 
     componentWillUnmount(){
         clearInterval(this.interval);
     }

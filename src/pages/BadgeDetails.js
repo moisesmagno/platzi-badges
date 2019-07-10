@@ -8,6 +8,7 @@ import ConfLogo from '../images/platziconf-logo.svg';
 import PageLoading from '../component/PageLoading';
 import PageError from '../component/PageError'; 
 import Badge from '../component/Badge';
+import DeleteBadgeModal from '../component/DeleteBadgeModal';
 
 import api from '../api';
 
@@ -16,7 +17,8 @@ class BadgeDetails extends React.Component {
     state = {
         loading: true,
         error: null,
-        data: undefined
+        data: undefined,
+        modalIsOpen: false
     }
 
     componentDidMount(){
@@ -31,6 +33,26 @@ class BadgeDetails extends React.Component {
             this.setState({loading: false, data: data})
         } catch (error) {
             this.setState({loading: false, error: error});    
+        }
+    }
+
+    handleOpenModal = e => {
+        this.setState({modalIsOpen: true});
+    }
+
+    handleCloseModal = e => {
+        this.setState({modalIsOpen: false});
+    }
+
+    handleDeleteBadge = async e => {
+        this.setState({loading: true, error: null});
+
+        try{
+            await api.badges.remove(this.props.match.params.badgeId);
+            this.setState({loading: false});
+            this.props.history.push('/badges');
+        }catch(error){
+            this.setState({loading: false, error: error});
         }
     }
 
@@ -79,7 +101,8 @@ class BadgeDetails extends React.Component {
                                 <Link className="btn btn-primary mb-4" to={`/badges/${badge.id}/edit`}>Edit</Link>
                             </div>
                             <div>
-                                <button className="btn btn-danger">Delete</button>
+                                <button onClick={this.handleOpenModal} className="btn btn-danger">Delete</button>
+                                <DeleteBadgeModal modaIsModal={this.state.modalIsOpen} closeModal={this.handleCloseModal} deleteBadge={this.handleDeleteBadge}/>
                             </div>
                         </div>
                     </div>

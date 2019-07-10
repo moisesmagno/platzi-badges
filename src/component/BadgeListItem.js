@@ -11,7 +11,8 @@ class BadgeListItem extends React.Component {
                 </div>
                 <div className="BadgesListItem__data">
                     <h4>{this.props.badge.firstName} {this.props.badge.lastName}</h4> 
-                    <span className="">@{this.props.badge.twitter}</span>       
+                    <span className="">@{this.props.badge.github}</span>     
+                    <br/>  
                     <span>{this.props.badge.jobTitle}</span>
                 </div> 
             </div>
